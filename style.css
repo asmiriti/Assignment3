@@ -1,0 +1,39 @@
+body
+{
+
+    background-color: #D3D3D3;
+    color:blueviolet;
+    
+
+}
+
+#content
+{
+    text-align: center;
+    font-size:30px;
+}
+
+
+#main
+{
+    text-align: center;
+    font-size:30px;
+}
+
+#text-button
+{
+    height:20px;
+    width:40%;
+}
+
+
+#btn
+{
+    font-size:15px;
+}
+
+#users{
+
+    width: 500px; margin: 0 auto;
+
+}

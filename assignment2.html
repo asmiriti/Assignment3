@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+<title></title>
+
+
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<body>
+        <div id="main">
+
+            <h3>Fetching Github Data</h3>
+
+            <input id="text-button" type="text"  >
+    
+            <button id="btn" onclick="fetchdata()">fetch info</button>
+
+        </div>    
+
+        
+
+<script>
+
+
+async function fetchdata()
+{
+
+    let username=document.getElementById('text-button').value;
+
+    let urldata1=await fetch('https://api.github.com/search/repositories?q={{'+username+'}}');
+
+    let data = await urldata1.json();
+
+
+
+    let array=[];
+
+    let urlArray=[];
+
+    let batchinfo=[];
+
+    let licenseVar,nameVar,nameValue;
+
+    var  len=data.items.length;
+    for(let i=0;i<10;i++)
+    {
+        if(i>=len)
+        break;
+        
+        let urlFromData1=data.items[i].owner.url;
+
+        let urldata2=await fetch(urlFromData1);
+
+        mydata=await urldata2.json();
+
+        let urlFromData2=data.items[i].branches_url;
+
+
+        urlFromData2=urlFromData2.split('{');
+
+        let urldata3=await fetch(urlFromData2[0]);
+
+        batchInfo=await urldata3.json();
+
+
+
+        console.log(batchInfo);
+
+
+        
+
+
+
+        //urlArray.push(followers":mydata.followers,"following":mydata.following,"batch_url":batchInfo.length})
+
+        if(data.items[i].license!=null)
+       {
+                licenseVar=data.items[i].license.name;
+       }
+
+       else{
+        licenseVar=null;
+       }
+
+       if(data.items[i].name!=null)
+       {
+           nameVar=data.items[i].name;
+       }
+
+       else
+       {
+           
+           nameVar=null;
+       }
+
+       if(data.items[i].owner.name!=null)
+       {
+           nameValue=data.items[i].owner.name;
+       }
+
+       else
+       {
+           
+           nameValue=null;
+       }
+
+       
+       array.push({"name":nameVar,"fullname":data.items[i].full_name,"private":data.items[i].private,"owner":{"login":data.items[i].owner.login,"lname":nameValue,"followers":mydata.followers,"following":mydata.following},"score":data.items[i].score,"license":licenseVar,"batch_url":batchInfo.length});
+       
+    }
+
+   
+    //document.getElementById('infoprint').innerText=JSON.stringify(array,null,2);
+    
+    
+    console.log(JSON.stringify(array,null,2));
+
+    //console.log(urlArray);
+
+
+
+
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
